@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block js %}
+<script type="text/javascript">
+    function addImage(_src) {
+        $.ajax({
+            url:"/addpic/{{wish.wishid}}",
+            type: "POST",
+            contentType:"application/json",
+            dataType:"json",
+            data: JSON.stringify({'thumbs':_src})
+        }).always(function () {
+            var url = "/api/user/{{profile.hashed}}/wishlist";
+            $(location).attr('href', url);
+        });
+    }
+</script>
+{% endblock %}
+
+{% block main %}
+    {% if error %}
+        <p class=error><strong>Error:</strong> {{ error }} </p>
+    {% endif %}
+    
+<body>
+    <div class="container">
+        <br><h4>Choose an image for your thumbnail</h4><br>
+        {% for image in images %}
+            <img class="clickt" onclick="addImage(this.src)" src="{{image}}" height="100" width="100" name="theimage"/>
+        {% endfor %}
+    </div>
+</body>
+{% endblock %}

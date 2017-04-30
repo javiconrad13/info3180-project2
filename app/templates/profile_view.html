@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+
+{% block css %}
+<style type="text/css">
+#container{
+        width: 80%;
+        margin: 0 auto;
+        color:black;
+    }
+
+.profile_btn{
+        background: #FFFFFF;
+        border: none;
+        min-height: 50px;
+    }
+
+.content {
+    width: auto;
+    overflow: hidden;
+}
+
+.c1 {
+    overflow: hidden;
+}
+
+.form-control {
+    border: 0;
+    box-shadow: none;
+}
+
+</style>
+{% endblock %}
+
+
+{% block main %}
+    {% if error %}
+        <p class=error><strong>Error:</strong> {{ error }} </p>
+    {% endif %}
+
+<div class="content">
+    
+{% include 'flash_messages.html' %}
+
+    <div class="c1">
+        <h3>{{profile.firstname}} {{profile.lastname}}'s Wishlist</h3>
+        <div class="btn-group btn-group-justified">
+            <a href="{{ url_for('about' )}}" class="btn btn-warning" role="button">About</a>            
+            <a href="{{ url_for('profile_view',userid=profile.id) }}" class="btn btn-primary" role="button">Add a Wish</a>
+            <a href="{{ url_for('sharing', userid= profile.hashed )}}" class="btn btn-info" role="button">Share with a friend</a>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger" role="button">Log out</a>
+        </div>
+    </div>
+    <hr/>
+    <table id="container">
+        {% for wishes in wish %}
+            <tr >
+                <td class="btn btn-default profile_btn">
+                    <a href="{{wishes.descurl}}" target="_blank"><img src="{{wishes.thumbs}}" height="200" width="200"></a>
+                </td>
+                <td >
+                    <p>Title: {{wishes.title}}</p>
+                    <p>Description: {{wishes.desc}}</p>
+                </td>
+                <td> 
+                <form action = "{{url_for('deleteitem', wishid=wishes.wishid)}}" class="form-control" method = "post">
+                  <input class="btn btn-danger" type="submit" value="Delete">
+                </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block main %}
+  {% if error %}
+    <p class=error><strong>Error:</strong> {{ error }} </p>
+  {% endif %}
+  
+<div class="login-form center-block">
+    <h2>Share your Wishlist</h2>
+    {% from "_form_helpers.html" import render_field %}
+    <form action="{{ url_for('sharing', userid = profile.hashed) }}" method="post" enctype="multipart/form-data" name="share">
+        <div class="form-group">
+            <input type="email" class="form-control" placeholder="E-mail Address" name="email" value="{{request.form.email}}">
+            <br><input class="btn btn-info" type="submit" value="Share Wishlist">
+        </div>
+    </form>
+</div> 
+{% endblock %}
