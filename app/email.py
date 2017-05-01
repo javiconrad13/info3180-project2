@@ -20,7 +20,7 @@ def send_email(to, subject, id):
     msg = Message(
         subject,
         recipients=[to],
-        html="Please click on the following link below to view the items on my wishlist: " + "  http://info3180proj2-javiconrad13.c9users.io/api/user/"+ str(id) +"/wishlist",
+        html="Please click on the following link below to view the items on my wishlist: " + "  https://infinite-mesa-74712.herokuapp.com/api/user/"+ str(id) +"/wishlist",
         sender='leon.facey@gmail'
         # sender=app.config['MAIL_DEFAULT_SENDER']
         
